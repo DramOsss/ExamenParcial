@@ -22,32 +22,27 @@ Pregunta
 1. Para cada opción (A y B), determine la complejidad asintótica de las operaciones:
 
 a. enqueue
+
 - Opcion A 
 	O(1) (siempre constante, sin depender de N)
-
 	Ω(1) (mejor caso también es constante, solo asigna  la cola según prioridad)
-
 	Θ(1) (siempre constante, cota ajustada)
 
-- Opcion B complejidad O(1)	
-
+- Opcion B complejidad O(1)
 	O(N) (peor caso: Al intentar insertar al final de lista si es prioridad L y ya tiene N–1 elementos)
-
 	Ω(1) (mejor caso: insertar al inicio si es prioridad H)
 	No se puede dar Θ (varia entre Ω(1) y O(N), no es constante ni siempre lineal exacto, depende de la distribución de prioridades)
 
 b. dequeue
-- Opcion A
 
+- Opcion A
 	O(1) (como mucho mirar 3 colas y extraer de una)
 	Ω(1) (siempre al menos una operación de extraccion)
 	Θ(1) (siempre constante)
 
 
-- Opcion B complejidad O(1)	
-
+- Opcion B complejidad O(1)
 	O(1) (extraer primer nodo)
-
 	Ω(1) (siempre extraer primer nodo)
 	Θ(1) (siempre constante)
 
@@ -60,8 +55,7 @@ e. Notación Θ (cota ajustada, si aplica)
 Para cada opción:
 a. Determine la complejidad total del proceso completo:
 
-Opción A 
-
+Opción A
 i. Insertar los N trabajos
 Cada inserción es O(1) → O(N) total.
 
@@ -71,93 +65,77 @@ Cada dequeue es O(1) → O(N) total.
 b. Complejidad total del proceso completo
 Total = O(N) + O(N) = O(N)
 
-Notación:
-
+Notacion:
 O(N) (cota superior)
-
 Ω(N) (cota inferior, porque hay que insertar y procesar cada trabajo al menos una vez)
-
 Θ(N) (cota ajustada, porque el mejor y peor caso son lineales en N)
 
 b. Exprese el resultado usando notación asintótica.
 
-
-Opción B 
+Opción B
 
 i. Insertar los N trabajos
-Cada inserción puede ser O(k) para el k-ésimo trabajo.
-Peor caso: 1 + 2 + … + N = N(N+1)/2 → O(N²).
+Cada inserción puede ser O(k) para el k-esimo trabajo.
+Peor caso: 1 + 2 + … + N = N(N+1)/2 → O(N^2).
 
 ii. Procesar los N trabajos
 Cada dequeue es O(1) → O(N) total.
 
 b. Complejidad total del proceso completo
-Total = O(N²) + O(N) = O(N²)
+Total = O(N^2) + O(N) = O(N^2)
 
 Notación:
 
-O(N²) (cota superior)
-
-Ω(N²) (cota inferior, debido a la suma de posiciones de inserción en peor caso)
-
-Θ(N²) (cota ajustada para el peor caso; en el mejor caso sería Ω(N) si todos son prioridad H, pero el enunciado pide análisis del proceso completo en general o peor caso)
+O(N^2) (cota superior)
+Ω(N^2) (cota inferior, debido a la suma de posiciones de inserción en peor caso)
+Θ(N^2) (cota ajustada para el peor caso; en el mejor caso sería Ω(N) si todos son prioridad H, pero el enunciado pide análisis del proceso completo en general o peor caso)
 
 
 3. Basándose en su análisis:
 a. ¿Cuál implementación es más eficiente en el peor caso?
 Opción A (tres colas separadas) es más eficiente en el peor caso.
 
-Opción A: Complejidad total O(N)
+Opcion A: Complejidad total O(N)
 
-Opción B: Complejidad total O(N²)
+Opcion B: Complejidad total O(N^2)
 
-La diferencia está en la inserción: Opción A tiene inserción O(1) constante, mientras que Opción B tiene inserción O(N) en el peor caso por cada trabajo, resultando en O(N²) para insertar N trabajos.
+La diferencia está en la inserción: Opción A tiene inserción O(1) constante, mientras que Opción B tiene inserción O(N) en el peor caso por cada trabajo, resultando en O(N^2) para insertar N trabajos.
 
 b. ¿Cuál sería más simple de mantener?
-Opción A es más simple de mantener.
+
+Opcion A es más simple de mantener.
 Razones:
 
-Separación clara por prioridades (H, M, L), sin lógica de ordenamiento complejo.
-
-Menos errores: No hay que recorrer una lista enlazada para encontrar posición de inserción.
-
-Código más legible: Operaciones de encolar y desencolar son directas y predecibles.
-
-Fácil depuración: Se puede inspeccionar cada cola de prioridad por separado.
+Separación clara por prioridades (H, M, L), sin logica de ordenamiento complejo.
+Menos errores ya que no hay que recorrer una lista enlazada para encontrar posición de insercion.
+Codigo más legible con operaciones de encolar y desencolar son directas y predecibles.
+Facil depuracion: Se puede inspeccionar cada cola de prioridad por separado.
 
 c. Justificación con argumentos de complejidad y diseño
 
 Complejidad:
-Opción A:
+Opcion A:
 
 enqueue: Θ(1)
-
 dequeue: Θ(1)
+Total para N trabajos: Θ(N) Tiene escalabilidad lineal, optima para altos volumenes.
 
-Total para N trabajos: Θ(N) Tiene escalabilidad lineal, óptima para altos volúmenes.
-
-Opción B:
+Opcion B:
 
 enqueue: O(N) en peor caso
-
 dequeue: Θ(1)
-
-Total para N trabajos: O(N²)
+Total para N trabajos: O(N^2)
 
 
 Diseño:
-Opción A:
+Opcion A:
 
-Usa el principio Separation of Concerns: cada prioridad tiene su propia cola.
+ -Cada prioridad tiene su propia cola.
+ -Puedes agregar una nueva prioridad solo requiere añadir otra cola.
+- Las operaciones en una cola no afectan las otras.
 
-Extensible: agregar una nueva prioridad solo requiere añadir otra cola.
+Opcion B:
 
-Menos acoplamiento: las operaciones en una cola no afectan las otras.
-
-Opción B:
-
-Mantener una sola lista ordenada requiere lógica de comparacion más compleja (prioridad + orden de llegada).
-
+Mantener una sola lista ordenada requiere logica de comparacion más compleja (prioridad + orden de llegada).
 Riesgo de errores al insertar en posición intermedia.
-
 Si cambian las reglas de prioridad, hay que reescribir la lógica de ordenamiento completo.
